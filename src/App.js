@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import NavBar from './components/NavBar';
+import Map from './components/Map'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import useFetch from './hooks/useFetch';
+import { useEffect } from 'react';
+import { Provider } from 'react-redux'
+import { initializeHazards } from "./reducers/hazardsReducer"
+import { useDispatch } from 'react-redux'
 
-function App() {
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  }
+})
+
+const App = () => {
+  const dispatch = useDispatch()
+  let hazards = {'type': 'FeatureCollection', 'features': []}
+
+  /*useEffect(() => {
+    hazards = dispatch(initializeHazards())
+    console.log(hazards)
+  }, [dispatch])*/
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <NavBar />
+        <Map hazards={hazards}/>
+      </div>
+    </ThemeProvider>
   );
 }
 
