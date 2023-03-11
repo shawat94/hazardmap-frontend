@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import LoginForm from './LoginForm'
 
 const NavBar = () => {
     return (
@@ -17,6 +18,7 @@ const NavBar = () => {
                 </Typography> 
                 <Button color="inherit">Login</Button>
             </Toolbar>
+            <LoginForm/>
         </AppBar>
     )
 }

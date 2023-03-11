@@ -1,12 +1,15 @@
 import './App.css';
 import NavBar from './components/NavBar';
 import Map from './components/Map'
+import ReactMap from './components/ReactMap';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import useFetch from './hooks/useFetch';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux'
 import { initializeHazards } from "./reducers/hazardsReducer"
 import { useDispatch } from 'react-redux'
+import hazardsService from './services/hazardsService';
+import { setUser } from './reducers/usersReducer';
 
 const theme = createTheme({
   palette: {
@@ -18,16 +21,20 @@ const App = () => {
   const dispatch = useDispatch()
   let hazards = {'type': 'FeatureCollection', 'features': []}
 
-  /*useEffect(() => {
-    hazards = dispatch(initializeHazards())
-    console.log(hazards)
-  }, [dispatch])*/
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      dispatch(setUser(user))
+      hazardsService.setToken(user.token)
+    }
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <NavBar />
-        <Map hazards={hazards}/>
+        <ReactMap />
       </div>
     </ThemeProvider>
   );

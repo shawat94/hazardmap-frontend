@@ -1,7 +1,5 @@
-import axios from 'axios'
 import { createSlice } from '@reduxjs/toolkit'
-
-const hazardsUrl = '/api/v1/hazards/'
+import hazardsService from '../services/hazardsService'
 
 
 const hazardsSlice = createSlice ({
@@ -10,37 +8,42 @@ const hazardsSlice = createSlice ({
   reducers: {
     setHazards(state, action) {
       return action.payload
+    },
+    appendHazard(state, action) {
+      state.features.push(action.payload)
+    },
+    deleteHazard(state, action) {
+      return {type: 'FeatureCollection', features: state.features.filter(item => item.properties.id != action.payload)}
     }
   }
 })
 
-const hazardsReducer = (state = 'ALL', action) => {
-    switch (action.type) {
-      case 'SET_HAZARDS':
-        return action.payload
-      default:
-        return state
-    }
-  }
-
 export const initializeHazards = () => {
   return async dispatch => {
-    const baseUrl = process.env.REACT_APP_BACKEND_URL
-    console.log(baseUrl + hazardsUrl)
-    const response = await axios.get(baseUrl + hazardsUrl)
-    console.log(response.data)
-    let data = response.data
+    const data = await hazardsService.getAll()
+    console.log(data)
     dispatch(setHazards(data))
   }
 }
 
-export const hazardsChange = hazards => {
-  return {
-    type: 'SET_HAZARDS',
-    payload: hazards,
+export const createHazard = hazard => {
+  return async dispatch => {
+    const newHazard = await hazardsService.create(hazard)
+    console.log(newHazard)
+    dispatch(appendHazard(newHazard))
   }
 }
 
-export const { setHazards } = hazardsSlice.actions
+export const removeHazard = hazard_id => {
+  return async dispatch => {
+    const response = await hazardsService.remove(hazard_id)
+    console.log(response)
+    dispatch(deleteHazard(hazard_id))  
+  }
+}
+
+
+
+export const { setHazards, appendHazard, deleteHazard } = hazardsSlice.actions
 
 export default hazardsSlice.reducer
