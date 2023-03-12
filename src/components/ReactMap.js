@@ -6,7 +6,7 @@ import NewHazardPopup from './NewHazardPopup'
 import maplibregl from 'maplibre-gl'
 import HazardPin from './HazardPin';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import './map.css'
+import './reactmap.css'
 
 const ReactMap = () => {
   const dispatch = useDispatch()
@@ -34,7 +34,12 @@ const ReactMap = () => {
     ],
     'text-offset': [0, 1.25],
     'text-anchor': 'top'
-        }
+        },
+    'paint': {
+        'text-color': '#FFFFFF',
+        'text-halo-color': '#000000',
+        'text-halo-width': 1
+    }
     }
 
     const loggedUser = useSelector(state => state.users)

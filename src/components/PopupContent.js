@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { useDispatch } from 'react-redux';
 import { removeHazard } from '../reducers/hazardsReducer'
+import '../components/popupcontent.css'
 
 const PopupContent = ({ name, category, id}) => {
     const dispatch = useDispatch()
@@ -13,8 +14,8 @@ const PopupContent = ({ name, category, id}) => {
 
     return (
         <Box>
-            <Typography>{name}</Typography>
-            <Typography>{category}</Typography>
+            <Typography color="textPrimary">{name}</Typography>
+            <Typography color="textPrimary">{category}</Typography>
             <Button id="delete-button" onClick={() => handleClickDeleteButton(id)}>Delete</Button>
         </Box>
     )

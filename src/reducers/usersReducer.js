@@ -24,6 +24,7 @@ const usersSlice = createSlice ({
     return async dispatch => {
         const newUser = await loginService.login(userCredentials)
         window.localStorage.setItem('loggedUser', JSON.stringify(newUser))
+        hazardsService.setToken(newUser.token)
         dispatch(setUser(newUser))
     }
   }

@@ -86,7 +86,8 @@ const Map = () => {
                             'Arial Unicode MS Bold'
                             ],
                             'text-offset': [0, 1.25],
-                            'text-anchor': 'top'
+                            'text-anchor': 'top',
+                            'text-color': '#FFFFFF'
                             }
                         }
                     )

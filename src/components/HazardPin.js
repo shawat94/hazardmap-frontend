@@ -25,6 +25,7 @@ const HazardPin = (hazard) => {
             </Marker>
             {popupInfo && (
             <Popup
+            className="hazard-popup"
             anchor="bottom"
             latitude={lat}
             longitude={lon}

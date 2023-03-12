@@ -3,14 +3,12 @@ import Map, {Marker, Source, Layer, Popup} from 'react-map-gl'
 import { useDispatch, useSelector } from 'react-redux'
 import { createHazard } from '../reducers/hazardsReducer'
 import { Box, Input, FormHelperText, Grid, Button, MenuItem, TextField, Select, FormControl } from '@mui/material'
-
 import './newhazardpopup.css'
 
 const NewHazardPopup = ({ newHazardPopupLocation, setNewHazardPopupLocation }) => {
     const dispatch = useDispatch()
 
     let newHazardFormat = { 'hazard_name': "", 'category': ""}
-    let hazard_category
     console.log(newHazardPopupLocation)
 
     const [ newHazardInfo, setNewHazardInfo ] = useState(newHazardFormat)

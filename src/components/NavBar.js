@@ -1,20 +1,17 @@
-import AppBar from '@mui/material/AppBar'
-import MenuIcon from '@mui/icons-material/Menu'
-import IconButton from '@mui/material/IconButton'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
+import { AppBar, Box, Toolbar, Typography } from '@mui/material'
 import LoginForm from './LoginForm'
 
 const NavBar = () => {
     return (
-        <AppBar position="static">
-            <Toolbar variant="dense">
-                <Typography variant="h6" color="inherit" component="div">
-                    Hazard Map
-                </Typography> 
-            </Toolbar>
-            <LoginForm/>
+        <AppBar position="static" >
+                <Toolbar>
+                    <Typography variant="h6" color="inherit" component="div">
+                        Hazard Map
+                    </Typography> 
+                    <Box sx={{ position: 'relative', alignItems: 'center', justifyContent: 'center', flexWrap: 'nowrap', flexDirection: 'row', display: 'flex', marginLeft: 'auto' }}>
+                        <LoginForm/>
+                    </Box>
+                </Toolbar>
         </AppBar>
     )
 }
