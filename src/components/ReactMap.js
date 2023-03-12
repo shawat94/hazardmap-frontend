@@ -12,6 +12,7 @@ const ReactMap = () => {
   const dispatch = useDispatch()
   const mapContainer = useRef(null)
   const [dataLoaded, setDataLoaded] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [lng] = useState(-122.3348)
   const [lat] = useState(47.6397)
   const [zoom] = useState(13)
@@ -37,7 +38,11 @@ const ReactMap = () => {
 }
 
   useEffect(() => {
-      dispatch(initializeHazards())
+    dispatch(initializeHazards())
+    let userItem = window.localStorage.getItem('loggedUser')
+    if (userItem) {
+        setLoggedIn(JSON.parse(userItem))
+    }
   }, [])
 
   useEffect(() => {
@@ -65,7 +70,7 @@ return (
             container={mapContainer}
             mapStyle={`https://api.maptiler.com/maps/e37bef09-3baa-45c4-b75d-11a662a2e806/style.json?key=${API_KEY}`}
         >
-            {(newHazardPopupLocation) && (
+            {(newHazardPopupLocation && loggedIn) && (
                 <NewHazardPopup newHazardPopupLocation={newHazardPopupLocation} setNewHazardPopupLocation={setNewHazardPopupLocation}/>
             )}
             <Source id='hazards' type='geojson' data={hazards} >

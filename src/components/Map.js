@@ -25,7 +25,9 @@ const Map = () => {
     const [lat] = useState(47.6397)
     const [zoom] = useState(13)
     const [API_KEY] = useState('cfTFGlvrAfbx6x6DPy52')
+    const [loggedIn, setLoggedIn] = useState(null)
     let hazards = useSelector(state => state.hazards)
+
 
     const handleClickDeleteButton = (id) => {
     hazardsService.remove(id)
@@ -33,6 +35,7 @@ const Map = () => {
 
     useEffect(() => {
         dispatch(initializeHazards())
+        setLoggedIn = window.localStorage.getItem('loggedUser')
     }, [])
     
     useEffect(() => {

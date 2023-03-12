@@ -8,7 +8,8 @@ const usersSlice = createSlice ({
     initialState: {},
     reducers: {
       setUser(state, action) {
-        state.loggedUser = action.payload
+        console.log(current(state))
+        return action.payload
       }
     }
   })
@@ -16,8 +17,6 @@ const usersSlice = createSlice ({
   export const createUser = user => {
     return async dispatch => {
         const newUser = await usersService(user)
-        window.localStorage.setItem('loggedUser', JSON.stringify(newUser))
-        hazardsService.setToken(newUser.token)
         dispatch(setUser(newUser))
     }
   }
@@ -25,9 +24,13 @@ const usersSlice = createSlice ({
   export const loginUser = userCredentials => {
     return async dispatch => {
         const newUser = await loginService.login(userCredentials)
-        window.localStorage.setItem('loggedUser', JSON.stringify(newUser))
-        hazardsService.setToken(newUser.token)
-        dispatch(setUser(newUser))
+        dispatch(setUser({user: newUser, loggedIn: false}))
+    }
+  }
+
+  export const logoutUser = () => {
+    return async dispatch => {
+        dispatch(setUser({user: null, loggedIn: false}))
     }
   }
 

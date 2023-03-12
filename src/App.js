@@ -19,16 +19,15 @@ const theme = createTheme({
 
 const App = () => {
   const dispatch = useDispatch()
-  let hazards = {'type': 'FeatureCollection', 'features': []}
 
-  useEffect(() => {
+  /*useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       dispatch(setUser(user))
       hazardsService.setToken(user.token)
     }
-  }, [])
+  }, [])*/
 
   return (
     <ThemeProvider theme={theme}>
