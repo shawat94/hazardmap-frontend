@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Typography } from '@mui/material'
-import usersReducer, { loginUser, logoutUser } from '../reducers/usersReducer'
+import usersReducer, { loginUser, logoutUser, registerUser } from '../reducers/usersReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import hazardsService from '../services/hazardsService'
 import loginService from '../services/loginService'
@@ -11,29 +11,30 @@ const LoginForm = () => {
     const [password, setPassword] = useState('')
     //const [loggedUser, setLoggedUser] = useState(null)
 
-    const [loggedUser, setLoggedUser] = useState(null)
+    //const [loggedUser, setLoggedUser] = useState(null)
+
+    const loggedUser = useSelector(state => state.users)
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
         if (loggedUserJSON) {
           const user = JSON.parse(loggedUserJSON)
           console.log(user)
-          setLoggedUser(user)
-          hazardsService.setToken(user.token)
+          if (user) {
+            dispatch(registerUser(user))
+            hazardsService.setToken(user.token)
+          }
         }
-      }, [])
+      }, [dispatch])
 
     const handleLogin = async () => {
-        const newUser = await loginService.login({"username": username, "password": password})
-        setLoggedUser(newUser)
-        window.localStorage.setItem('loggedUser', JSON.stringify(newUser))
-        hazardsService.setToken(newUser.token)
+        dispatch(loginUser({'username': username, 'password': password}))
         setPassword('')
         setUsername('')
     }
 
     const handleLogout = () => {
-        setLoggedUser(null)
+        dispatch(logoutUser())
         window.localStorage.removeItem('loggedUser')
         hazardsService.setToken('')
         setPassword('')
