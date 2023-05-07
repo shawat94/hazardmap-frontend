@@ -16,7 +16,7 @@ const ReactMap = () => {
   const [lng] = useState(-122.3348)
   const [lat] = useState(47.6397)
   const [zoom] = useState(13)
-  const [API_KEY] = useState('cfTFGlvrAfbx6x6DPy52')
+  const [API_KEY] = useState(process.env.REACT_APP_MAPTILE_API_KEY)
   let hazards = useSelector(state => state.hazards)
   const [newLat, setNewLat] = useState(null)
   const [newLng, setNewLng] = useState(null)
